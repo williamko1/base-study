@@ -77,7 +77,7 @@ public class No11MaxArea {
         int l = 0, r = height.length - 1, maxArea = 0;
         while (l < r) {
             int minHeight = height[l] < height[r] ? height[l++] : height[r--];
-            maxArea = Math.max((r - l) * minHeight, maxArea);
+            maxArea = Math.max((r - l + 1) * minHeight, maxArea);
         }
         return maxArea;
     }
