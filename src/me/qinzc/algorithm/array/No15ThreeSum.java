@@ -1,4 +1,4 @@
-package me.qinzc.array;
+package me.qinzc.algorithm.array;
 
 import java.util.ArrayList;
 import java.util.List;

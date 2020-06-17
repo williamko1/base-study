@@ -1,4 +1,4 @@
-package me.qinzc.array;
+package me.qinzc.algorithm.array;
 
 /**
  * desc : #11 盛最多的水

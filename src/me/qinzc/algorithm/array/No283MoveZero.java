@@ -1,4 +1,4 @@
-package me.qinzc.array;
+package me.qinzc.algorithm.array;
 
 /**
  * desc : #283 移动零
