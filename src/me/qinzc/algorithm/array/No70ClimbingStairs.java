@@ -1,4 +1,4 @@
-package me.qinzc.array;
+package me.qinzc.algorithm.array;
 
 /**
  * desc : #70 爬楼梯
