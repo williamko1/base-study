@@ -1,6 +1,7 @@
 package me.qinzc.designp.iterator;
 
 
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 /**
@@ -13,10 +14,35 @@ import java.util.StringJoiner;
  */
 public class IteratorPatternDemo {
 
+    public static void main(String[] args) {
+        Student student1 = new Student("小王");
+        Student student2 = new Student("小明");
+        Student student3 = new Student("小李");
+
+        Student[] students = new Student[3];
+        students[0] = student1;
+        students[1] = student2;
+        students[2] = student3;
+        Classroom classroom = new Classroom(3);
+        classroom.addStudent(student1);
+        classroom.addStudent(student2);
+        classroom.addStudent(student3);
+        Iterator<Student> iterator = classroom.iterator();
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            System.out.println(student);
+
+        }
+        Arrays.stream(students).iterator();
+
+    }
+
+    // 相当于jdk Iterable 接口 提供一个获取迭代器的接口
     public interface Aggregate {
         public abstract Iterator iterator();
     }
 
+    // 迭代器
     public interface Iterator<T> {
         
         public abstract boolean hasNext();
@@ -51,20 +77,33 @@ public class IteratorPatternDemo {
 
         private Student[] students;
 
-        public Student[] getStudents() {
-            return students;
+        private int last = 0;
+
+        public Classroom(int size) {
+            this.students = new Student[size];
         }
 
-        public Classroom setStudents(Student[] students) {
-            this.students = students;
-            return this;
+        public Student getStudent(int index) {
+            return students[index];
+        }
+
+        public void addStudent(Student student) {
+            this.students[last] = student;
+            last++;
         }
 
         public int getLength() {
-            return students.length;
+            return last;
+        }
+
+        public Iterator iterator() {
+            return new ClassroomIterator(this);
         }
     }
 
+    /**
+     * 教室迭代器
+     */
     private static class ClassroomIterator implements Iterator<Student>{
 
         private Classroom classroom;
@@ -73,7 +112,7 @@ public class IteratorPatternDemo {
 
         public ClassroomIterator(Classroom classroom) {
             this.classroom = classroom;
-            index = 0;
+            this.index = 0;
         }
 
         @Override
@@ -83,7 +122,7 @@ public class IteratorPatternDemo {
 
         @Override
         public Student next() {
-            Student student = classroom.getStudents()[index];
+            Student student = classroom.getStudent(index);
             index++;
             return student;
         }
