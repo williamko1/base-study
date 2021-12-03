@@ -1,4 +1,4 @@
-package me.qinzc.command;
+package me.qinzc.designp.command;
 
 /**
  * desc :
