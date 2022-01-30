@@ -20,6 +20,19 @@ public class SafeFullSingletonPatternDemo {
         /**
          * 不是完美的
          * 因为不同的jvm编译器问题，可能导致还是线程不安全的
+         * 多线程情况下，不同的jvm会出现指令重排， 需要加volatile禁止指令重排 或者final
+         *
+         * new Singleton() 这一句会指令
+         * 1.分配一块内存M
+         * 2.在内存M上初始化Singleton对象
+         * 3.然后M的地址赋值给instance对象
+         * 重排后顺序变为
+         * 1.分配一块内存M
+         * 2.然后M的地址赋值给instance对象
+         * 3.在内存M上初始化Singleton对象
+         *
+         * 重排后可以能发生第一个线程执行到2，把M的地址赋值给instance对象
+         * 然后线程2，执行到判断instance == null 直接就返回。但是还没有对象
          * @return
          */
         public static Singleton getInstance() {
