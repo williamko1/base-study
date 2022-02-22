@@ -72,6 +72,7 @@ import java.util.concurrent.locks.Lock;
  * @author Doug Lea
  */
 public class ReentrantLock implements Lock, java.io.Serializable {
+
     private static final long serialVersionUID = 7373984872572414699L;
     /** Synchronizer providing all implementation mechanics */
     private final Sync sync;
@@ -94,10 +95,12 @@ public class ReentrantLock implements Lock, java.io.Serializable {
          * Performs non-fair tryLock.  tryAcquire is implemented in
          * subclasses, but both need nonfair try for trylock method.
          */
+        // 非公平锁 tryAcquire
         final boolean nonfairTryAcquire(int acquires) {
             final Thread current = Thread.currentThread();
             int c = getState();
             if (c == 0) {
+                // 这里没有对阻塞队列进行判断，直接获取  （非公平）
                 if (compareAndSetState(0, acquires)) {
                     setExclusiveOwnerThread(current);
                     return true;
@@ -117,7 +120,9 @@ public class ReentrantLock implements Lock, java.io.Serializable {
             int c = getState() - releases;
             if (Thread.currentThread() != getExclusiveOwnerThread())
                 throw new IllegalMonitorStateException();
+            // 是否完全释放锁
             boolean free = false;
+            // 其实就是重入的问题，如果c==0，也就是说没有嵌套锁了，可以释放了，否则还不能释放掉
             if (c == 0) {
                 free = true;
                 setExclusiveOwnerThread(null);
