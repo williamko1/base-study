@@ -12,8 +12,8 @@ package me.qinzc.interview.sgg1;
  * 6. 返回ModelAndView给DispatcherServlet
  * 7. 视图解析 ViewResolver DispatcherServlet.render.resolveViewName
  * 8. 返回view -> DispatcherServlet
- * 9. 渲染视图 view.render
- * 10. 响应用户
+ * 9. 渲染视图 view.render InternalResourceView.exposeModelAsRequestAttributes
+ *10. 响应用户 rd.forward(request, response);
  * @author Zane Qin
  * creatTime : 15:57 2023/3/14
  * modifier:
