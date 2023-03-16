@@ -16,7 +16,7 @@ public class B01_VolatileVisitable {
 
 
     public static void main(String[] args) {
-//        volatileVisitableTest();
+        volatileVisitableTest();
         volatileAtomicTest();
     }
 
@@ -67,18 +67,4 @@ public class B01_VolatileVisitable {
     }
 }
 
-class MyData{
-    volatile int i = 0;
-    AtomicInteger myInteger = new AtomicInteger(0);
-    public void addTo60() {
-        this.i = 60;
-    }
 
-    public void addPlusPlus() {
-        i++;
-    }
-
-    public void addAtomic() {
-        myInteger.incrementAndGet();
-    }
-}
